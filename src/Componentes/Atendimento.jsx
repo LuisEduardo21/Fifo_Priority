@@ -8,6 +8,7 @@ export default class Atendimento extends Componentes{
                 <span className="badge badge-primary">
                     {this.props.text}
                 </span>
+                <p>oi</p>
             </h3>
 
         </div>
