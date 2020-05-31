@@ -6,7 +6,7 @@ export default class Cliente extends Componentes{
         return (
             <div className="d-inline-block" style={{ marginLeft: '5px'}}>
                 <h3>
-                    <span className="badge badge-warning">
+                    <span className="back badge-warning">
                         {this.props.text}
                     </span>
                 </h3>
