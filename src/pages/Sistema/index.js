@@ -42,7 +42,7 @@ export function Sistema() {
   return (
     <div>
       <div className="containerTitulo">
-        <h1> Nhé Bank </h1>
+        <h1>Nhé Bank</h1>
       </div>
       <div className="containerFilas">
         <Espera filaDeEspera={filaDeEspera}></Espera>
