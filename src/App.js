@@ -1,11 +1,12 @@
 import React from 'react';
+import { Sistema } from './pages/Sistema';
 
-
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Sistema />
+    <div>
+      <Sistema></Sistema>
     </div>
   );
 }

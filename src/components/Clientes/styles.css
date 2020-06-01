@@ -1,0 +1,11 @@
+img {
+  height: 50px;
+  width: 50px;
+}
+
+.containerCliente {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+}
