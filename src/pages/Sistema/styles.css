@@ -1,0 +1,12 @@
+.containerTitulo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 30px;
+  background-color: rgb(12, 135, 243);
+}
+
+.containerFilas {
+  display: flex;
+  flex-direction: row;
+}
