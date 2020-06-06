@@ -1,3 +1,14 @@
-.containerEspera {
+#containerEspera {
   margin: 0 20px;
+  margin-left: 5px;
+}
+
+#h1 {
+margin-left: 20px;
+font-size: 20pt;
+font-weight: bold;
+font-family: Arial, Helvetica, sans-serif;
+color: blue;
+
+
 }

@@ -3,9 +3,9 @@ img {
   width: 50px;
 }
 
-.containerCliente {
+#containerCliente {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5px;
+  padding: 17px;
 }
