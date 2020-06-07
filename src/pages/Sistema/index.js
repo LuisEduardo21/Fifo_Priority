@@ -47,7 +47,7 @@ export function Sistema() {
     
   //gerencia a primeira fila de atendimento
   useEffect(() => {
-    if (filaAtendimento1.length <= 2) {
+    if (filaAtendimento1.length <= 0) {
       const interval = setInterval(() => {
         const cliente = filaDeEspera.shift();
         setFilaDeEspera([...filaDeEspera]);
@@ -59,7 +59,7 @@ export function Sistema() {
   
   //Gerencia a segunda fila de atendimento
   useEffect(() => {
-    if (filaAtendimento2.length <= 2) {
+    if (filaAtendimento2.length <= 0) {
       const interval = setInterval(() => {
         const cliente = filaDeEspera.shift();
         setFilaDeEspera([...filaDeEspera]);
