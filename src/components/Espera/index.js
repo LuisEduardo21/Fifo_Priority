@@ -6,9 +6,8 @@ import './styles.css';
 export function Espera({ filaDeEspera }) {
   return ( 
     <div>
-  <h1 id="h1">Processos na fila de espera: </h1>
+  <h1 id="h1">Cliente(s) na fila de espera: </h1>
     <div id="containerEspera" className="row">
-     
       {filaDeEspera.length > 0 &&
         filaDeEspera.map((item) => (
           <Clientes
