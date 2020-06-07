@@ -13,6 +13,7 @@ export function Sistema() {
   const [filaDeEspera, setFilaDeEspera] = useState([]);
   const [filaAtendimento1, setFilaAtendimento1] = useState([]);
   const [filaAtendimento2, setFilaAtendimento2] = useState([]);
+  const [filaFinalizada, setFilaFInalizada] = useState([]);
 
   const qtdPessoasQueChegaramNaFila = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -44,7 +45,7 @@ export function Sistema() {
     return () => clearInterval(interval);
   }, [filaDeEspera]);
     
-  //gerencia a primeira fila de atendimento
+  //gerencia a primeira fila de atendimento 2
   useEffect(() => {
     const interval = setInterval(() => {
       const cliente = filaDeEspera.shift();
@@ -54,7 +55,7 @@ export function Sistema() {
     return () => clearInterval(interval);
   }, [filaDeEspera, filaAtendimento1]);
   
-  //Gerencia a segunda fila de atendimento
+  //Gerencia a segunda fila de atendimento 2
   useEffect(() => {
     const interval2 = setInterval(() => {
       const cliente = filaDeEspera.shift();
@@ -65,6 +66,26 @@ export function Sistema() {
     return () => clearInterval(interval2);
   }, [filaDeEspera, filaAtendimento2]);
 
+  // Remove os clientes do atendimento 1
+  useEffect(() => {
+    const interval = setInterval(() => {
+     const filaDeEspera = filaAtendimento1.shift();
+     setFilaAtendimento1([...filaAtendimento1]);
+     setFilaFInalizada((filaAtendimento1)=> [...filaAtendimento1,filaDeEspera]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [filaFinalizada, filaAtendimento1]);
+
+  //// Remove os clientes do atendimento 2
+  useEffect(() => {
+    const interval = setInterval(() => {
+     const filaDeEspera = filaAtendimento2.shift();
+     setFilaAtendimento2([...filaAtendimento2]);
+     setFilaFInalizada((filaAtendimento2)=> [...filaAtendimento2,filaDeEspera]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [filaFinalizada, filaAtendimento2]);
+  
   return (
     <div className="container-fluid">
       <div className="row col-lg-12">
