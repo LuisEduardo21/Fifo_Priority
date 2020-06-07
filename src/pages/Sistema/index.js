@@ -24,14 +24,14 @@ export function Sistema() {
     countId++;
     cliente.id = countId;
     cliente.genero = Math.random() >= 0.5 ? "m" : "f";
-    cliente.prioridade = Math.random() >= 0.7; // 1 - 0.7 = 0.3 ou 30% de chance de ser TRUE (Prioritário)
+    cliente.prioridade = Math.random() >= 0.6; // 1 - 0.6 = 0.4 ou 40% de chance de ser TRUE (Prioritário)
     return cliente;
   };
 
   //ele gerencia a fila de espera
   useEffect(() => {
     const interval = setInterval(() => {
-      if (filaDeEspera.length <= 10) {
+      if (filaDeEspera.length <= 9) {
         const qtdClientes = qtdPessoasQueChegaramNaFila(0, 2);
         for (let i = 0; i < qtdClientes; i++) {
           const cliente = geraCliente();
