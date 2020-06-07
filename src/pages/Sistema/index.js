@@ -45,25 +45,28 @@ export function Sistema() {
     return () => clearInterval(interval);
   }, [filaDeEspera]);
     
-  //gerencia a primeira fila de atendimento 2
+  //gerencia a primeira fila de atendimento
   useEffect(() => {
-    const interval = setInterval(() => {
-      const cliente = filaDeEspera.shift();
-      setFilaDeEspera([...filaDeEspera]);
-      setFilaAtendimento1((filaAtendimento1) => [...filaAtendimento1, cliente]);
-    }, 2000);
-    return () => clearInterval(interval);
+    if (filaAtendimento1.length <= 2) {
+      const interval = setInterval(() => {
+        const cliente = filaDeEspera.shift();
+        setFilaDeEspera([...filaDeEspera]);
+        setFilaAtendimento1((filaAtendimento1) => [...filaAtendimento1, cliente]);
+      }, 2000);
+      return () => clearInterval(interval);
+      }
   }, [filaDeEspera, filaAtendimento1]);
   
-  //Gerencia a segunda fila de atendimento 2
+  //Gerencia a segunda fila de atendimento
   useEffect(() => {
-    const interval2 = setInterval(() => {
-      const cliente = filaDeEspera.shift();
-      setFilaDeEspera([...filaDeEspera]);
-      setFilaAtendimento2((filaAtendimento2) => [...filaAtendimento2, cliente]);
-      console.log(filaAtendimento2);
-    }, 2000);
-    return () => clearInterval(interval2);
+    if (filaAtendimento2.length <= 2) {
+      const interval = setInterval(() => {
+        const cliente = filaDeEspera.shift();
+        setFilaDeEspera([...filaDeEspera]);
+        setFilaAtendimento2((filaAtendimento2) => [...filaAtendimento2, cliente]);
+      }, 2000);
+      return () => clearInterval(interval);
+      }
   }, [filaDeEspera, filaAtendimento2]);
 
   // Remove os clientes do atendimento 1
@@ -76,7 +79,7 @@ export function Sistema() {
     return () => clearInterval(interval);
   }, [filaFinalizada, filaAtendimento1]);
 
-  //// Remove os clientes do atendimento 2
+  // Remove os clientes do atendimento 2
   useEffect(() => {
     const interval = setInterval(() => {
      const filaDeEspera = filaAtendimento2.shift();
