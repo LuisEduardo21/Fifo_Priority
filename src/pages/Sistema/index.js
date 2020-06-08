@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Espera } from "../../components/Espera";
 import Atendimento1 from "../../components/Atendimento1";
 import Atendimento2 from "../../components/Atendimento2";
+import PauseIcon from "@material-ui/icons/Pause";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
 //import Clientes from '../../components/Clientes'
 import "bootstrap/dist/css/bootstrap.css";
@@ -156,16 +158,16 @@ export function Sistema() {
             style={{ marginRight: 25 }}
             onClick={()=>setExecutando(!executando)}
           >
-            Iniciar
+            <PlayArrowIcon></PlayArrowIcon>Iniciar
           </button>
           <button
             type="button"
-            class="btn btn-md btn-danger"
+            class="btn btn-md btn-primary"
             style={{ marginRight: 25 }}
             onClick={()=>setExecutando(!executando)}
           >
             Pausar
-          </button>
+         <PauseIcon></PauseIcon> </button>
           
         </div>
         {/* fila de atendimento1*/}
@@ -182,15 +184,15 @@ export function Sistema() {
               </div>
               <div id="metricastxt">
                 <span>
-                  {"1) Tempo Médio de espera no sistema: "}
-                  {Number(tempoMedioEspera) + 2}
+                  {"1) Tempo Médio de Espera no Sistema: "}
+                  {Number(tempoMedioEspera) + 2} seg
                 </span>
                 <div></div>
-                <span>{"2) Tempo Médio de Atendimento: 2 Segundos"}</span>
+                <span>{"2) Tempo Médio de Atendimento: 2.00 seg"}</span>
                 <div></div>
                 <span>
                   {"3) Tempo Médio de Espera na Fila: "}
-                  {tempoMedioEspera}
+                  {tempoMedioEspera} seg
                 </span>
               </div>
             </div>
