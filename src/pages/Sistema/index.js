@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Espera } from "../../components/Espera";
 import Atendimento1 from "../../components/Atendimento1";
 import Atendimento2 from "../../components/Atendimento2";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import PauseIcon from "@material-ui/icons/Pause";
 
-//import Clientes from '../../components/Clientes'
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles.css";
 
@@ -26,7 +27,7 @@ export function Sistema() {
     countId++;
     cliente.id = countId;
     cliente.genero = Math.random() >= 0.5 ? "m" : "f";
-    cliente.prioridade = Math.random() >= 0.6; // 1 - 0.6 = 0.4 ou 40% de chance de ser TRUE (Prioritário)
+    cliente.prioridade = Math.random() >= 0.8; // 1 - 0.8 = 0.2 ou 20% de chance de ser TRUE (Prioritário)
     cliente.tempoEspera = 0;
     return cliente;
   };
@@ -163,19 +164,21 @@ export function Sistema() {
           {!executando ? (
             <button
               type="button"
-              class="btn btn-md btn-success"
+              class="btn btn-md btn-success btn-lg"
               style={{ marginRight: 25 }}
               onClick={() => setExecutando(!executando)}
             >
+              <PlayArrowIcon />
               Iniciar
             </button>
           ) : (
             <button
               type="button"
-              class="btn btn-md btn-danger"
+              class="btn btn-md btn-primary btn-lg"
               style={{ marginRight: 25 }}
               onClick={() => setExecutando(!executando)}
             >
+              <PauseIcon />
               Pausar
             </button>
           )}
@@ -186,22 +189,22 @@ export function Sistema() {
             <div id="titulo">
               <h5>Métricas</h5>
             </div>
-            <div id="metricastxt">
+            <div>
               <span>
                 {"1) Tempo Médio de espera no sistema: "}
                 {filaFinalizada.length === 0 ? 0 : Number(tempoMedioEspera) + 2}
-                {" segundos"}
+                {" seg"}
               </span>
               <div></div>
               <span>
                 {"2) Tempo Médio de Atendimento: "}
-                {filaFinalizada.length === 0 ? 0 : "2 segundos"}
+                {filaFinalizada.length === 0 ? 0 : "2 seg"}
               </span>
               <div></div>
               <span>
                 {"3) Tempo Médio de Espera na Fila: "}
                 {tempoMedioEspera}
-                {" segundos"}
+                {" seg"}
               </span>
             </div>
           </div>
