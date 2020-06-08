@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Espera } from "../../components/Espera";
 import Atendimento1 from "../../components/Atendimento1";
 import Atendimento2 from "../../components/Atendimento2";
-import PauseIcon from "@material-ui/icons/Pause";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
 //import Clientes from '../../components/Clientes'
 import "bootstrap/dist/css/bootstrap.css";
@@ -54,7 +52,7 @@ export function Sistema() {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [filaDeEspera,executando]);
+  }, [filaDeEspera, executando]);
 
   //gerencia a primeira fila de atendimento
   useEffect(() => {
@@ -71,7 +69,7 @@ export function Sistema() {
         return () => clearInterval(interval);
       }
     }
-  }, [filaDeEspera, filaAtendimento1,executando]);
+  }, [filaDeEspera, filaAtendimento1, executando]);
 
   //Gerencia a segunda fila de atendimento
   useEffect(() => {
@@ -92,7 +90,7 @@ export function Sistema() {
         return () => clearInterval(interval);
       }
     }
-  }, [filaDeEspera, filaAtendimento2,executando]);
+  }, [filaDeEspera, filaAtendimento2, executando]);
 
   // Remove os clientes do atendimento 1
   useEffect(() => {
@@ -107,7 +105,7 @@ export function Sistema() {
       }, 3000);
       return () => clearInterval(interval);
     }
-  }, [filaFinalizada, filaAtendimento1,executando]);
+  }, [filaFinalizada, filaAtendimento1, executando]);
 
   // Remove os clientes do atendimento 2
   useEffect(() => {
@@ -122,7 +120,7 @@ export function Sistema() {
       }, 3000);
       return () => clearInterval(interval);
     }
-  }, [filaFinalizada, filaAtendimento2,executando]);
+  }, [filaFinalizada, filaAtendimento2, executando]);
 
   useEffect(() => {
     if (executando) {
@@ -143,66 +141,74 @@ export function Sistema() {
       }, 1000);
       return () => clearInterval(interval);
     }
-  },[filaFinalizada,executando]);
+  }, [filaFinalizada, executando]);
 
   return (
-    <div className="container-fluid">
-      <div className="row col-lg-12">
-        <div id="containerFilas" className="col-md-8">
+    <div className="row">
+      <div className="col-md-7">
+        <div className="col-md-8">
           <Espera filaDeEspera={filaDeEspera}></Espera>
         </div>
-        <div id="button" className=" col-md-4">
-          <button
-            type="button"
-            class="btn btn-md btn-success"
-            style={{ marginRight: 25 }}
-            onClick={()=>setExecutando(!executando)}
-          >
-            <PlayArrowIcon></PlayArrowIcon>Iniciar
-          </button>
-          <button
-            type="button"
-            class="btn btn-md btn-primary"
-            style={{ marginRight: 25 }}
-            onClick={()=>setExecutando(!executando)}
-          >
-            Pausar
-         <PauseIcon></PauseIcon> </button>
-          
-        </div>
-        {/* fila de atendimento1*/}
-        <div className="row  col-lg-12">
-          <div id="containerAtendente1" className="col-md-8">
+        <div className="row">
+          <div className="col-md-6">
             <Atendimento1 filaAtendimento1={filaAtendimento1}></Atendimento1>
           </div>
-
-          <div id="metricas">
-            <div className="col-md-auto">
-              {/* Métricas */}
-              <div id="titulo">
-                <h5>Métricas</h5>
-              </div>
-              <div id="metricastxt">
-                <span>
-                  {"1) Tempo Médio de Espera no Sistema: "}
-                  {Number(tempoMedioEspera) + 2} seg
-                </span>
-                <div></div>
-                <span>{"2) Tempo Médio de Atendimento: 2.00 seg"}</span>
-                <div></div>
-                <span>
-                  {"3) Tempo Médio de Espera na Fila: "}
-                  {tempoMedioEspera} seg
-                </span>
-              </div>
-            </div>
-          </div>
-          {/* fila de atendimento2 */}
-          <div id="containerAtendente1" className="col-md-8">
+          <div className="col-md-6">
             <Atendimento2 filaAtendimento2={filaAtendimento2}></Atendimento2>
           </div>
         </div>
       </div>
+      <div className="col-md-5">
+        <div id="button">
+          {!executando ? (
+            <button
+              type="button"
+              class="btn btn-md btn-success"
+              style={{ marginRight: 25 }}
+              onClick={() => setExecutando(!executando)}
+            >
+              Iniciar
+            </button>
+          ) : (
+            <button
+              type="button"
+              class="btn btn-md btn-danger"
+              style={{ marginRight: 25 }}
+              onClick={() => setExecutando(!executando)}
+            >
+              Pausar
+            </button>
+          )}
+        </div>
+        <div id="metricas">
+          <div className="col-md-auto">
+            {/* Métricas */}
+            <div id="titulo">
+              <h5>Métricas</h5>
+            </div>
+            <div id="metricastxt">
+              <span>
+                {"1) Tempo Médio de espera no sistema: "}
+                {filaFinalizada.length === 0 ? 0 : Number(tempoMedioEspera) + 2}
+                {" segundos"}
+              </span>
+              <div></div>
+              <span>
+                {"2) Tempo Médio de Atendimento: "}
+                {filaFinalizada.length === 0 ? 0 : "2 segundos"}
+              </span>
+              <div></div>
+              <span>
+                {"3) Tempo Médio de Espera na Fila: "}
+                {tempoMedioEspera}
+                {" segundos"}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* fila de atendimento1*/}
+      <div className="row  col-lg-12">{/* fila de atendimento2 */}</div>
     </div>
   );
 }

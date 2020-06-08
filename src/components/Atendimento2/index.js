@@ -5,10 +5,10 @@ import "./styles.css";
 
 function Atendente2({ filaAtendimento2 }) {
   return (
-    <div>
+    <div id="containerAtendente2">
       <h1 id="h1">Atendente 2: </h1>
       <div>
-        <div id="containerAtendente2" className="row">
+        <div className="row">
           {filaAtendimento2.length > 0 &&
             filaAtendimento2.map((item) => (
               <Clientes
