@@ -13,7 +13,8 @@ export function Sistema() {
   const [filaDeEspera, setFilaDeEspera] = useState([]);
   const [filaAtendimento1, setFilaAtendimento1] = useState([]);
   const [filaAtendimento2, setFilaAtendimento2] = useState([]);
-  const [filaFinalizada, setFilaFInalizada] = useState([]);
+  const [filaFinalizada, setFilaFinalizada] = useState([]);
+  const [tempoMedioEspera, setTempoMedioEspera] = useState([]);
 
   const qtdPessoasQueChegaramNaFila = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -25,12 +26,18 @@ export function Sistema() {
     cliente.id = countId;
     cliente.genero = Math.random() >= 0.5 ? "m" : "f";
     cliente.prioridade = Math.random() >= 0.6; // 1 - 0.6 = 0.4 ou 40% de chance de ser TRUE (Prioritário)
+    cliente.tempoEspera = 0;
     return cliente;
   };
 
-  //ele gerencia a fila de espera
+  //ele gerencia a fila de Espera
   useEffect(() => {
     const interval = setInterval(() => {
+      //adiciona 1 segundo no tempo de fila de espera de cada cliente
+      if (filaDeEspera.length > 0) {
+        filaDeEspera.forEach((cliente) => cliente.tempoEspera++);
+        console.log(filaDeEspera);
+      }
       if (filaDeEspera.length <= 9) {
         const qtdClientes = qtdPessoasQueChegaramNaFila(0, 2);
         for (let i = 0; i < qtdClientes; i++) {
@@ -62,8 +69,12 @@ export function Sistema() {
 
   //Gerencia a segunda fila de atendimento
   useEffect(() => {
+    //Verificar se há cliente prioritario na fila
     if (filaAtendimento2.length <= 0) {
       const interval = setInterval(() => {
+        filaDeEspera.sort(function (a, b) {
+          return (a.prioridade === b.prioridade)? 0 : a.prioridade? -1 : 1;
+        });
         const cliente = filaDeEspera.shift();
         setFilaDeEspera([...filaDeEspera]);
         setFilaAtendimento2((filaAtendimento2) => [
@@ -78,11 +89,11 @@ export function Sistema() {
   // Remove os clientes do atendimento 1
   useEffect(() => {
     const interval = setInterval(() => {
-      const filaDeEspera = filaAtendimento1.shift();
+      const clienteAtendido = filaAtendimento1.shift();
       setFilaAtendimento1([...filaAtendimento1]);
-      setFilaFInalizada((filaAtendimento1) => [
+      setFilaFinalizada((filaAtendimento1) => [
         ...filaAtendimento1,
-        filaDeEspera,
+        clienteAtendido,
       ]);
     }, 3000);
     return () => clearInterval(interval);
@@ -91,15 +102,34 @@ export function Sistema() {
   // Remove os clientes do atendimento 2
   useEffect(() => {
     const interval = setInterval(() => {
-      const filaDeEspera = filaAtendimento2.shift();
+      const clienteAtendido2 = filaAtendimento2.shift();
       setFilaAtendimento2([...filaAtendimento2]);
-      setFilaFInalizada((filaAtendimento2) => [
+      setFilaFinalizada((filaAtendimento2) => [
         ...filaAtendimento2,
-        filaDeEspera,
+        clienteAtendido2,
       ]);
     }, 3000);
     return () => clearInterval(interval);
   }, [filaFinalizada, filaAtendimento2]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      //Tempo medio de fila de espera
+      if (filaFinalizada.length > 0) {
+        let contadorTempoMedio = 0;
+        filaFinalizada.forEach(
+          (cliente) =>
+            (contadorTempoMedio +=
+              cliente !== undefined ? cliente.tempoEspera : 0)
+        );
+        const tempoMedio = (contadorTempoMedio / filaFinalizada.length).toFixed(
+          2
+        );
+        setTempoMedioEspera(tempoMedio);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  });
 
   return (
     <div className="container-fluid">
@@ -134,11 +164,17 @@ export function Sistema() {
                   <h5>Métricas</h5>
                 </div>
                 <div id="metricastxt">
-                  <span>{"1) Ritmo Médio de Chegada: "}</span>
+                  <span>
+                    {"1) Tempo Médio de espera no sistema: "}
+                    {Number(tempoMedioEspera) + 2}
+                  </span>
                   <div></div>
-                  <span>{"2) Tempo Médio de Atendimento: "}</span>
+                  <span>{"2) Tempo Médio de Atendimento: 2 Segundos"}</span>
                   <div></div>
-                  <span>{"3) Tempo Médio de Espera na Fila: "}</span>
+                  <span>
+                    {"3) Tempo Médio de Espera na Fila: "}
+                    {tempoMedioEspera}
+                  </span>
                 </div>
               </div>
             </div>
