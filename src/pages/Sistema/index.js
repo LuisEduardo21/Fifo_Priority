@@ -73,7 +73,7 @@ export function Sistema() {
     if (filaAtendimento2.length <= 0) {
       const interval = setInterval(() => {
         filaDeEspera.sort(function (a, b) {
-          return (a.prioridade === b.prioridade)? 0 : a.prioridade? -1 : 1;
+          return a.prioridade === b.prioridade ? 0 : a.prioridade ? -1 : 1;
         });
         const cliente = filaDeEspera.shift();
         setFilaDeEspera([...filaDeEspera]);
@@ -137,7 +137,7 @@ export function Sistema() {
         <div id="containerFilas" className="col-md-8">
           <Espera filaDeEspera={filaDeEspera}></Espera>
         </div>
-        <div id="button" className=" col-lg-4">
+        <div id="button" className=" col-md-4">
           <button
             type="button"
             class="btn btn-md btn-success"
@@ -155,42 +155,38 @@ export function Sistema() {
           <button type="button" class="btn btn-md btn-primary">
             Reiniciar
           </button>
+        </div>
+        {/* fila de atendimento1*/}
+        <div className="row  col-lg-12">
+          <div id="containerAtendente1" className="col-md-8">
+            <Atendimento1 filaAtendimento1={filaAtendimento1}></Atendimento1>
+          </div>
 
-          <div>
-            <div id="metricas">
-              <div className="col-md-auto">
-                {/* Métricas */}
-                <div id="titulo">
-                  <h5>Métricas</h5>
-                </div>
-                <div id="metricastxt">
-                  <span>
-                    {"1) Tempo Médio de espera no sistema: "}
-                    {Number(tempoMedioEspera) + 2}
-                  </span>
-                  <div></div>
-                  <span>{"2) Tempo Médio de Atendimento: 2 Segundos"}</span>
-                  <div></div>
-                  <span>
-                    {"3) Tempo Médio de Espera na Fila: "}
-                    {tempoMedioEspera}
-                  </span>
-                </div>
+          <div id="metricas">
+            <div className="col-md-auto">
+              {/* Métricas */}
+              <div id="titulo">
+                <h5>Métricas</h5>
+              </div>
+              <div id="metricastxt">
+                <span>
+                  {"1) Tempo Médio de espera no sistema: "}
+                  {Number(tempoMedioEspera) + 2}
+                </span>
+                <div></div>
+                <span>{"2) Tempo Médio de Atendimento: 2 Segundos"}</span>
+                <div></div>
+                <span>
+                  {"3) Tempo Médio de Espera na Fila: "}
+                  {tempoMedioEspera}
+                </span>
               </div>
             </div>
-            <div></div>
           </div>
-        </div>
-      </div>
-      {/* fila de atendimento1*/}
-      <div className="row  col-lg-12">
-        <div id="containerAtendente1" className="col-md-8">
-          <Atendimento1 filaAtendimento1={filaAtendimento1}></Atendimento1>
-        </div>
-
-        {/* fila de atendimento2 */}
-        <div id="containerAtendente1" className="col-md-8">
-          <Atendimento2 filaAtendimento2={filaAtendimento2}></Atendimento2>
+          {/* fila de atendimento2 */}
+          <div id="containerAtendente1" className="col-md-8">
+            <Atendimento2 filaAtendimento2={filaAtendimento2}></Atendimento2>
+          </div>
         </div>
       </div>
     </div>
