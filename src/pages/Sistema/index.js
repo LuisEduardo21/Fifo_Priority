@@ -27,7 +27,7 @@ export function Sistema() {
     countId++;
     cliente.id = countId;
     cliente.genero = Math.random() >= 0.5 ? "m" : "f";
-    cliente.prioridade = Math.random() >= 0.8; // 1 - 0.8 = 0.2 ou 20% de chance de ser TRUE (Prioritário)
+    cliente.prioridade = Math.random() >= 0.7; // 1 - 0.7 = 0.3 ou 30% de chance de ser TRUE (Prioritário)
     cliente.tempoEspera = 0;
     return cliente;
   };
@@ -40,6 +40,7 @@ export function Sistema() {
         if (filaDeEspera.length > 0) {
           filaDeEspera.forEach((cliente) => cliente.tempoEspera++);
         }
+///ele criar o cliente na fila que pode chegar de 0 ate 2 pessoas e limitar ate 10 pessoas na fila
         if (filaDeEspera.length <= 9) {
           const qtdClientes = qtdPessoasQueChegaramNaFila(0, 2);
           for (let i = 0; i < qtdClientes; i++) {
@@ -58,9 +59,10 @@ export function Sistema() {
   //gerencia a primeira fila de atendimento
   useEffect(() => {
     if (executando) {
+      //o atendente vai chamar so um cliente por vez
       if (filaAtendimento1.length <= 0) {
         const interval = setInterval(() => {
-          const cliente = filaDeEspera.shift();
+          const cliente = filaDeEspera.shift();//shift remove cliente da fila de espera e retorna no atendimento
           setFilaDeEspera([...filaDeEspera]);
           setFilaAtendimento1((filaAtendimento1) => [
             ...filaAtendimento1,
@@ -75,7 +77,7 @@ export function Sistema() {
   //Gerencia a segunda fila de atendimento
   useEffect(() => {
     if (executando) {
-      //Verificar se há cliente prioritario na fila
+      //Verificar se há cliente prioritario na fila 
       if (filaAtendimento2.length <= 0) {
         const interval = setInterval(() => {
           filaDeEspera.sort(function (a, b) {
@@ -151,9 +153,9 @@ export function Sistema() {
           <Espera filaDeEspera={filaDeEspera}></Espera>
         </div>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-6"> {/* fila de atendimento1*/}
             <Atendimento1 filaAtendimento1={filaAtendimento1}></Atendimento1>
-          </div>
+          </div>{/* fila de atendimento2 */}
           <div className="col-md-6">
             <Atendimento2 filaAtendimento2={filaAtendimento2}></Atendimento2>
           </div>
@@ -210,8 +212,6 @@ export function Sistema() {
           </div>
         </div>
       </div>
-      {/* fila de atendimento1*/}
-      <div className="row  col-lg-12">{/* fila de atendimento2 */}</div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Clientes } from "../Clientes";
 
 import "./styles.css";
 
+//faz o mapeamento de clientes para ser atendido
 function Atendente2({ filaAtendimento2 }) {
   return (
     <div id="containerAtendente2">

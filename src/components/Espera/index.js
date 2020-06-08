@@ -3,6 +3,7 @@ import { Clientes } from "../Clientes";
 
 import "./styles.css";
 
+/// faz o mapeamento para inserir o cliente na fila
 export function Espera({ filaDeEspera }) {
   return (
     <div id="containerEspera">
